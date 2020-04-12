@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {MainTemplate} from './templates'
+import Loader from './widgets/loader/loader'
 import {
   BrowserRouter as Router,
   Route,
@@ -18,6 +19,7 @@ function App() {
           </Switch>
         </Router>
         <Notification />
+        <Loader />
     </div>
 
   );
