@@ -22,10 +22,8 @@ export const LoginForm = props => {
             }
             onSubmit = {
                 (values,{setSubmitting}) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values,null,2))
-                        setSubmitting(false)
-                    }, 400);
+                    setSubmitting(false)
+                    props.formSubmission(values)
                 }
             }
         >
