@@ -2,7 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import signupBackground from '../../../assets/backgrounds/signupBackground.svg'
 import SignupForm from './signupForm'
+import { signupRequest } from '../../../services/open/auth'
 export class Signup extends React.Component {
+    registerUser(formData) {
+        signupRequest(formData).subscribe()
+    }
     render() {
         return(
             <SignupContainer className='container-fluid'>
@@ -10,7 +14,7 @@ export class Signup extends React.Component {
                     <div className="col-lg-6 col-md-8 col-12 bg-white border-right d-flex align-items-center justify-content-center">
                         <div className="content">
                             <h2 className="text-success text-center">Signup</h2>
-                            <SignupForm />
+                            <SignupForm registerHandler={this.registerUser}/>
                             
                         </div>
                     </div>
