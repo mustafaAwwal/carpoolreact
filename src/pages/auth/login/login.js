@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components';
 import LoginBackground from '../../../assets/backgrounds/loginBackground.svg';
 import {LoginForm} from './loginform'
-import {loginRequest} from '../../../services/open/auth'
+import {loginRequest} from '../../../services/open/auth';
+import store from '../../../redux/store';
+import {login} from '../../../redux/slices/user-slice'
 export class Login extends React.Component {
     state = {
         loginForm: {
@@ -13,9 +15,14 @@ export class Login extends React.Component {
     setFormData = (formData) =>{
         this.setState({...this.state,loginForm:formData})
         console.log(this.state.loginForm)
-        loginRequest(this.state.loginForm).subscribe(res=>console.log(res))
+        loginRequest(this.state.loginForm).subscribe(
+            res=>{
+                store.dispatch(login(res.payload))
+            }
+        )
     }
     render() {
+        
         return(
             <LoginContainer className='container-fluid'>
                 <div className="row align-items-stretch">

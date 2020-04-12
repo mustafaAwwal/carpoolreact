@@ -6,15 +6,20 @@ import {
   BrowserRouter as Router,
   Route,
   Switch } from 'react-router-dom';
+import Notification from './sections/notification/notification'
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path = '/'>
-          <MainTemplate />
-        </Route>
-      </Switch>
-    </Router>
+    <div>
+        <Router>
+          <Switch>
+            <Route path = '/'>
+              <MainTemplate />
+            </Route>
+          </Switch>
+        </Router>
+        <Notification />
+    </div>
+
   );
 }
 
