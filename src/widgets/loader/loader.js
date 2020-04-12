@@ -18,7 +18,7 @@ export class Loader extends React.Component{
             'justifyContent':'end'
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         store.subscribe(()=>{
             let newState = store.getState().loaderReducer;
             this.setState({visibility:newState.visibility,position:newState.position})

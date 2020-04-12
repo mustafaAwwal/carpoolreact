@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {MainTemplate} from './templates'
+import {MainTemplate, UserTemplate} from './templates'
 import Loader from './widgets/loader/loader'
 import {
   BrowserRouter as Router,
@@ -13,6 +13,9 @@ function App() {
     <div>
         <Router>
           <Switch>
+            <Route path = '/user'>
+              <UserTemplate />
+            </Route>
             <Route path = '/'>
               <MainTemplate />
             </Route>
