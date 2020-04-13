@@ -20,7 +20,8 @@ const UserHeader = props => {
 
 export const UserHeaderContainer = styled.div`
     height: 60px;
-    background-color: #dddddd
+    background-color: #dddddd;
+    z-index: 99;
 `
 
 export const links = [

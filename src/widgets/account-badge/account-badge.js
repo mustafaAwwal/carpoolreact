@@ -3,10 +3,12 @@ import React from 'react';
 import {checkToken} from '../../services/secure/user-service';
 import store from '../../redux/store';
 import { login } from '../../redux/slices/user-slice';
+import { useHistory } from 'react-router-dom';
 class AccountBadge extends React.Component {
     state = {
         name: '',
-        picture: ''
+        picture: '',
+        showBadge: false
     }
     componentDidMount() {
         this.setInitialState()
@@ -20,24 +22,50 @@ class AccountBadge extends React.Component {
         else {
             checkToken().subscribe(
                 res=>{
-                    console.log(res)
                     this.setState({name:res.payload.username,picture:res.payload.picture})
-                    console.log(this.state)
                     store.dispatch(login(res.payload))
                 }
             );
         }
     }
+    showBadge() {
+        this.setState({showBadge:!this.state.showBadge})
+    }
     render() {
         return (
-            <BadgeContainer className='bg-dark text-light font-weight-light rounded-pill d-flex justify-content-end align-items-center'>
+            <BadgeContainer className='bg-dark text-light font-weight-light rounded-pill d-flex justify-content-end align-items-center' onClick={()=>{this.showBadge()}}>
                 <AccountHeading>{this.state.name}</AccountHeading>
                 <img src={this.state.picture} className='rounded-circle h-100' alt=""/>
+                <BadgeLinks show={this.state.showBadge}/>
             </BadgeContainer>
         )
     }
 }
 
+export const BadgeLinks = props=>{
+    let history = useHistory();
+    let style = {
+        show: {
+            transform:'translateX(0%)',
+            transition: '400ms'
+        },
+        hide: {
+            transform:'translateX(100%)',
+            transition: '400ms'
+        }
+    }
+    let visibleState = props.show ? style.show:style.hide
+    let signOut = ()=>{
+        localStorage.removeItem('token')
+        history.push('/')
+    }
+    return (
+        <BadgeLinkContainer className='shadow d-flex flex-column justify-content-center pb-3 bg-white' style={visibleState}>
+            <hr/>
+            <button className='btn' type='button' onClick={()=>signOut()}>Signout</button>
+        </BadgeLinkContainer>
+    )
+}
 
 export const BadgeContainer = styled.div`
     height: 40px;
@@ -55,5 +83,13 @@ export const AccountHeading  = styled.div`
         display:none;
         transition:400ms;
     }
+`
+
+export const BadgeLinkContainer = styled.div`
+    position:fixed;
+    top:60px;
+    right:0px;
+    width: 130px;
+    border-bottom-left-radius: 20px;
 `
 export default AccountBadge;

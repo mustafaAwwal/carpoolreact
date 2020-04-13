@@ -9,7 +9,6 @@ const notificationSlice = createSlice({
     initialState: initialNotificationState,
     reducers: {
         showNotificationSuccess(state,action){
-            console.log(action.payload,'payload')
             let {msg} = action.payload;
             return state = {...state,msg:msg,msgtype:'success'}
         },
