@@ -1,6 +1,7 @@
 import React from 'react';
-import { Switch, useRouteMatch, Route } from 'react-router-dom';
+import { Switch, useRouteMatch } from 'react-router-dom';
 import {Login,Signup} from '../../pages/auth'
+import {GuestRoute} from '../../services/authentication'
 import Home from '../../pages/main/home/home'
 import { MainHeader } from '../../sections/headers';
 export const MainTemplate = props => {
@@ -10,15 +11,15 @@ export const MainTemplate = props => {
         <div>
             <MainHeader />
             <Switch>
-                <Route path={`${match.url}login`}>
+                <GuestRoute path={`${match.url}login`}>
                     <Login />
-                </Route>
-                <Route path = {`${match.url}signup`} >
+                </GuestRoute>
+                <GuestRoute path = {`${match.url}signup`} >
                     <Signup />
-                </Route>
-                <Route path = {`${match.url}`} >
+                </GuestRoute>
+                <GuestRoute path = {`${match.url}`} >
                     <Home />
-                </Route>
+                </GuestRoute>
             </Switch>
         </div>
     )

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import store from '../../redux/store';
-
+import SimpleLoader from './simple-loader'
 export class Loader extends React.Component{
     state = {
         visibility: false,
@@ -25,18 +25,17 @@ export class Loader extends React.Component{
         })
     }
     render(){
-        let displayValue = this.state.visibility ? 'flex': 'none';
-        let style = {...this.styles[this.state.position],display:displayValue}
+        let style = {...this.styles[this.state.position]}
         
         return(
-            <LoaderContainer className='fixed-top' style={style}>
-                <div className="d-flex h-100 w-50 justify-content-center align-items-center">
-                    <div className="spinner-border text-success" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
+            <>
+                {this.state.visibility && 
+                    <LoaderContainer className='fixed-top' style={style}>
+                        <SimpleLoader />
+                    </LoaderContainer>
+                }
+            </>
 
-            </LoaderContainer>
 
         )
     }

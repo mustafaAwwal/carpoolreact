@@ -4,20 +4,27 @@ import LoginBackground from '../../../assets/backgrounds/loginBackground.svg';
 import {LoginForm} from './loginform'
 import {loginRequest} from '../../../services/open/auth';
 import store from '../../../redux/store';
-import {login} from '../../../redux/slices/user-slice'
+import {login} from '../../../redux/slices/user-slice';
+import {Redirect,useLocation} from 'react-router-dom';
 export class Login extends React.Component {
+    
     state = {
         loginForm: {
             username: '',
             password: ''
-        }
+        },
+        loggedIn: false
+    }
+    componentDidMount() {
+        console.log(this.props)
     }
     setFormData = (formData) =>{
         this.setState({...this.state,loginForm:formData})
-        console.log(this.state.loginForm)
         loginRequest(this.state.loginForm).subscribe(
             res=>{
                 store.dispatch(login(res.payload))
+                localStorage.setItem('token',res.payload.token)
+                this.setState({loggedIn:true})
             }
         )
     }
@@ -33,7 +40,7 @@ export class Login extends React.Component {
                         </div>
                     </div>
                 </div>
-
+                {this.state.loggedIn && <LoginRedirect />}
             </LoginContainer>
         )
     }
@@ -53,3 +60,11 @@ export const LoginContainer = styled.div`
     }
 `
 
+export const LoginRedirect = props => {
+    let location = useLocation();
+    let {from}   = location.state || {from:{pathname:'/user/searchRide'}};
+    console.log(from)
+    return (
+        <Redirect to ={from} />
+    )
+}
