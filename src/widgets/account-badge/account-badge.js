@@ -3,7 +3,8 @@ import React from 'react';
 import {checkToken} from '../../services/secure/user-service';
 import store from '../../redux/store';
 import { login } from '../../redux/slices/user-slice';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
+import ImgNull from '../img-null/img-null'
 class AccountBadge extends React.Component {
     state = {
         name: '',
@@ -35,7 +36,7 @@ class AccountBadge extends React.Component {
         return (
             <BadgeContainer className='bg-dark text-light font-weight-light rounded-pill d-flex justify-content-end align-items-center' onClick={()=>{this.showBadge()}}>
                 <AccountHeading>{this.state.name}</AccountHeading>
-                <img src={this.state.picture} className='rounded-circle h-100' alt=""/>
+                <ImgNull src={this.state.picture} alt=""/>
                 <BadgeLinks show={this.state.showBadge}/>
             </BadgeContainer>
         )
@@ -59,9 +60,10 @@ export const BadgeLinks = props=>{
         localStorage.removeItem('token')
         history.push('/')
     }
+    let bajLinks = links.map(link=><Link to={link.route} key={link.linkName} className='btn border-bottom'>{link.linkName}</Link>)
     return (
         <BadgeLinkContainer className='shadow d-flex flex-column justify-content-center pb-3 bg-white' style={visibleState}>
-            <hr/>
+            { props.links && bajLinks}
             <button className='btn' type='button' onClick={()=>signOut()}>Signout</button>
         </BadgeLinkContainer>
     )
@@ -92,4 +94,14 @@ export const BadgeLinkContainer = styled.div`
     width: 130px;
     border-bottom-left-radius: 20px;
 `
+export const links = [
+    {
+        linkName:'Booked Rides',
+        route: '/user/bookedRides'
+    },
+    {
+        linkName:'Offered Rides',
+        route: '/user/offeredRides'
+    }
+]
 export default AccountBadge;

@@ -11,7 +11,8 @@ export class Login extends React.Component {
     state = {
         loginForm: {
             username: '',
-            password: ''
+            password: '',
+            role: 'user'
         },
         loggedIn: false
     }
@@ -23,13 +24,14 @@ export class Login extends React.Component {
         loginRequest(this.state.loginForm).subscribe(
             res=>{
                 store.dispatch(login(res.payload))
-                localStorage.setItem('token',res.payload.token)
-                this.setState({loggedIn:true})
+                localStorage.setItem('token',res.payload.token);
+                localStorage.setItem('role',res.payload.role)
+                this.setState({loggedIn:true,role:res.payload.role})
             }
         )
     }
     render() {
-        
+        let role = this.state.role;
         return(
             <LoginContainer className='container-fluid'>
                 <div className="row align-items-stretch">
@@ -40,7 +42,7 @@ export class Login extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.loggedIn && <LoginRedirect />}
+                {this.state.loggedIn && <LoginRedirect role={role}/>}
             </LoginContainer>
         )
     }
@@ -62,7 +64,8 @@ export const LoginContainer = styled.div`
 
 export const LoginRedirect = props => {
     let location = useLocation();
-    let {from}   = location.state || {from:{pathname:'/user/searchRide'}};
+    let path = props.role === 'user' ? '/user/searchRide': '/admin/dashboard'
+    let {from}   = location.state || {from:{pathname:path}};
     console.log(from)
     return (
         <Redirect to ={from} />

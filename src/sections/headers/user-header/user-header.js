@@ -13,7 +13,7 @@ const UserHeader = props => {
                     (route,i)=><NavLink key={i} to={route.route} activeClassName='btn-dark' className='btn btn-success rounded-pill mx-1'>{route.linkName}</NavLink>
                 )}
             </div>
-            <AccountBadge />
+            <AccountBadge links/>
         </UserHeaderContainer>
     )
 }

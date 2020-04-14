@@ -13,7 +13,7 @@ const BookingRide = props=> {
             <MultiColorHeading black='Book' green='Ride'/>
             <UserInfo {...props}/>
             <div className="button-wrapper d-flex justify-content-end w-100">
-                { props.availableSeats >0 && <button className="btn btn-success rounder-pill mt-1" onClick={()=>bookRide()}>Book Ride</button>}
+                { props.availableSeats >0 && <button className="btn btn-success rounded-pill mt-1" onClick={()=>bookRide()}>Book Ride</button>}
             </div>
         </BookingContainer>
     )

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, useRouteMatch } from 'react-router-dom';
 import UserHeader from '../../sections/headers/user-header/user-header';
-import {SearchRide,MakeRide} from '../../pages/user'
+import {SearchRide,MakeRide,BookedRides,OfferedRides} from '../../pages/user'
 import {UserRoute} from '../../services/authentication';
 import styled from 'styled-components';
 export const UserTemplate = props => {
@@ -10,6 +10,12 @@ export const UserTemplate = props => {
         <UserWrapper>
             <UserHeader />
             <Switch>
+                <UserRoute path={`${match.url}/offeredRides`}>
+                    <OfferedRides />
+                </UserRoute>
+                <UserRoute path={`${match.url}/bookedRides`}>
+                    <BookedRides />
+                </UserRoute>
                 <UserRoute path={`${match.url}/searchRide`}>
                     <SearchRide />
                 </UserRoute>

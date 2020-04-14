@@ -10,7 +10,6 @@ class SearchBar extends React.Component {
         }
         this.searchRides = this.searchRides.bind(this)
     }
-    
     componentDidMount(){
         getAllCities().subscribe(
             res=>{

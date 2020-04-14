@@ -16,10 +16,9 @@ export class SearchRide extends React.Component {
         }
         this.searchRideHandler = this.searchRideHandler.bind(this);
         this.showSelectedRide = this.showSelectedRide.bind(this);
+        this.closePopup = this.closePopup.bind(this)
     }
-    state ={
-        
-    }
+    
     showPopup() {
         this.setState({showPopup: true})
     }
@@ -31,19 +30,23 @@ export class SearchRide extends React.Component {
             
         )
     }
+
     showSelectedRide(ride) {
         console.log(ride)
         this.setState({selectedRide: ride})
         this.showPopup();
     }
+    closePopup(){
+        this.setState({showPopup:false})
+    }
     render() {
         let rides = this.state.searchedRides.map((ride,i)=><RideCard key={i} {...ride} selectRideHandler={this.showSelectedRide}/>)
-        let popupComponent = this.state.pickCoOrdinates ? <div>hello</div> : <BookingRide {...this.state.selectedRide}/>
+        let selectedRide = this.state.selectedRide
         return(
             <div className='container'>
                 <SearchBar searchRideHandler={this.searchRideHandler}/>
-                <SidePopup show={this.state.showPopup}>
-                    {popupComponent}
+                <SidePopup show={this.state.showPopup} closePopup={this.closePopup}>
+                    <BookingRide {...selectedRide}/>
                 </SidePopup>
                 {rides}
             </div>
