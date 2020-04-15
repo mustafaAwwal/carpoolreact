@@ -12,10 +12,11 @@ export class MakeRide extends React.Component {
         }
         this.makeRideHandler = this.makeRideHandler.bind(this);
     }
+    subscription = []
     componentDidMount() {
-        getAllCities().subscribe(res=>{
+        this.subscription.push(getAllCities().subscribe(res=>{
             this.setState({cities: res.payload})
-        })
+        }))
     }
     makeRideHandler = (driveData)=>{
         let formData = driveData;
@@ -23,7 +24,10 @@ export class MakeRide extends React.Component {
         let destinationCity = this.state.cities.find(city => city.name === driveData.destination)
         formData.departureCoOrdinates = departureCity.coOrdinates
         formData.destinationCoOrdinates = destinationCity.coOrdinates
-        makeRideRequest(formData).subscribe();
+        this.subscription.push(makeRideRequest(formData).subscribe());
+    }
+    componentWillUnmount(){
+        this.subscription.map(sub=>sub.unsubscribe())
     }
     render() {
         return(

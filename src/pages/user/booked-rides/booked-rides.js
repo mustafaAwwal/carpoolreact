@@ -16,8 +16,12 @@ export class BookedRides extends React.Component {
         this.showSelectedRide = this.showSelectedRide.bind(this)
         this.closePopup = this.closePopup.bind(this)
     }
+    subscription = []
     componentDidMount() {
-        bookedRideRequest().subscribe(res=>this.setState({rides:res.payload}))
+        this.subscription.push( bookedRideRequest().subscribe(res=>this.setState({rides:res.payload})))
+    }
+    componentWillUnmount(){
+        this.subscription[0].unsubscribe();
     }
     showSelectedRide(ride) {
         this.setState({selectedRide:ride, showCancelRide: true})

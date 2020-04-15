@@ -2,15 +2,16 @@ import {Route,Redirect} from 'react-router-dom';
 import React from 'react';
 export const UserRoute = ({children,...rest})=> {
     let token = getToken()
-    let role = getRole()
+    let role  = getRole();
+    let path  = role==='admin' ? '/admin':'/login'
     return (
         <Route 
         {...rest}
         render = {
             ({location})=>{
-                return token ? children: <Redirect
+                return token && (role==='user') ? children: <Redirect
                 to={{
-                  pathname: "/login",
+                  pathname: path,
                   state: { from: location }
                 }}/>
             }
@@ -39,14 +40,16 @@ export const GuestRoute = ({children,...rest})=> {
 }
 export const AdminRoute = ({children,...rest})=>{
     let token = getToken();
+    let role  = getRole();
+    let path  = role==='user'?'/user':'/login'
     return(
         <Route 
             {...rest}
             render= {
                 ({location})=>{
-                    return token ? children : <Redirect 
+                    return token && (role==='admin') ? children : <Redirect 
                         to ={{
-                            pathname:'/login',
+                            pathname:path,
                             state: {from:location}
                         }}
                     />

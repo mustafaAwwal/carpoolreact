@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Switch,useRouteMatch } from 'react-router-dom';
+import { Switch,useRouteMatch, Redirect } from 'react-router-dom';
 import { AdminRoute } from '../../services/authentication';
 import { AdminDashboard } from '../../pages/admin';
 import { AdminHeader } from '../../sections/headers';
@@ -14,6 +14,7 @@ export const AdminTemplate = ()=>{
                 <AdminRoute path={`${match.url}/dashboard`}>
                     <AdminDashboard />
                 </AdminRoute>
+                <Redirect to='/admin/dashboard'/>
             </Switch>
         </AdminWrapper>
     )

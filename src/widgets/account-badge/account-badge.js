@@ -6,11 +6,17 @@ import { login } from '../../redux/slices/user-slice';
 import { useHistory,Link } from 'react-router-dom';
 import ImgNull from '../img-null/img-null'
 class AccountBadge extends React.Component {
-    state = {
-        name: '',
-        picture: '',
-        showBadge: false
+    constructor(props){
+        super(props)
+        this.state = {
+            name: '',
+            picture: '',
+            showBadge: false
+        }
+        this.setInitialState = this.setInitialState.bind(this)
     }
+
+    subscription = []
     componentDidMount() {
         this.setInitialState()
 
@@ -21,13 +27,16 @@ class AccountBadge extends React.Component {
             this.setState({name:username,picture:picture})
         }
         else {
-            checkToken().subscribe(
+            this.subscription.push(checkToken().subscribe(
                 res=>{
                     this.setState({name:res.payload.username,picture:res.payload.picture})
                     store.dispatch(login(res.payload))
                 }
-            );
+            ));
         }
+    }
+    componentWillUnmount(){
+        this.subscription[0].unsubscribe();
     }
     showBadge() {
         this.setState({showBadge:!this.state.showBadge})
@@ -36,8 +45,10 @@ class AccountBadge extends React.Component {
         return (
             <BadgeContainer className='bg-dark text-light font-weight-light rounded-pill d-flex justify-content-end align-items-center' onClick={()=>{this.showBadge()}}>
                 <AccountHeading>{this.state.name}</AccountHeading>
-                <ImgNull src={this.state.picture} alt=""/>
-                <BadgeLinks show={this.state.showBadge}/>
+                <ImageWrapper className='rounded-circle overflow-hidden'>
+                    <ImgNull src={this.state.picture} alt=""/>
+                </ImageWrapper>
+                <BadgeLinks show={this.state.showBadge} links={this.props.links}/>
             </BadgeContainer>
         )
     }
@@ -68,7 +79,14 @@ export const BadgeLinks = props=>{
         </BadgeLinkContainer>
     )
 }
-
+export const ImageWrapper = styled.div`
+    width:40px;
+    height:40px;
+    img {
+        width:100%;
+        height:100%;
+    }
+`
 export const BadgeContainer = styled.div`
     height: 40px;
     cursor: pointer;

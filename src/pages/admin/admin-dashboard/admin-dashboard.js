@@ -4,6 +4,7 @@ import {getAllRidesRequest,searchRides} from '../../../services/secure/rides-ser
 import RideCard from '../../../sections/ride-card/ride-card';
 import SidePopup from '../../../sections/side-popup/side-popup';
 import RideInfo from '../../../sections/ride-info/ride-info'
+import { AdminStats } from './admin-stats';
 export class AdminDashboard extends React.Component {
     constructor(props){
         super(props)
@@ -16,15 +17,20 @@ export class AdminDashboard extends React.Component {
         this.closePopup = this.closePopup.bind(this);
         this.searchRide = this.searchRide.bind(this)
     }
+    subscription = []
     componentDidMount(){
-        getAllRidesRequest().subscribe(
+        this.subscription.push(getAllRidesRequest().subscribe(
             res=>{
                 this.setState({rides: res.payload})
             }
-        )
+        ))
+
     }
     selectedRide(ride) {
         this.setState({showRide:true,selectedRide:ride})
+    }
+    componentWillUnmount(){
+        this.subscription[0].unsubscribe()
     }
     closePopup() {
         this.setState({showRide:false})
@@ -41,13 +47,17 @@ export class AdminDashboard extends React.Component {
         return(
             <>
                 <div className="container-fluid">
+                    <div className="row">
                     <div className="col-xl-9 col-12">
                         <SearchBar searchRideHandler={this.searchRide}/>
                         {rides}
                     </div>
+                    </div>
+
                     <SidePopup show={this.state.showRide} closePopup = {this.closePopup}>
                         <RideInfo {...selectedRide}/>
                     </SidePopup>
+                    <AdminStats length={this.state.rides.length}/>
                 </div>
             </>
         )

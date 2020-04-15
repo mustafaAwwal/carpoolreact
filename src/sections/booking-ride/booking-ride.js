@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import MultiColorHeading from '../../widgets/multi-color-heading/multi-color-heading';
 import UserInfo from '../../sections/user-info/user-info';
 import {bookRideRequest} from '../../services/secure/rides-service'
+import { take } from 'rxjs/operators';
 const BookingRide = props=> {
     let bookRide = ()=>{
         console.log(props)
-        bookRideRequest({rideId:props._id}).subscribe()
+        bookRideRequest({rideId:props._id}).pipe(take(1)).subscribe()
     }
     return (
         <BookingContainer>

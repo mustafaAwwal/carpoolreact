@@ -18,19 +18,21 @@ export class SearchRide extends React.Component {
         this.showSelectedRide = this.showSelectedRide.bind(this);
         this.closePopup = this.closePopup.bind(this)
     }
-    
+    subscription = []
     showPopup() {
         this.setState({showPopup: true})
     }
     searchRideHandler(values) {
-        searchRides(values).subscribe(
+        this.subscription.push(searchRides(values).subscribe(
             res=> {
                 this.setState({searchedRides: res.payload})
             }
             
-        )
+        ))
     }
-
+    componentWillUnmount(){
+        this.subscription.map(sub=>sub.unsubscribe())
+    }
     showSelectedRide(ride) {
         console.log(ride)
         this.setState({selectedRide: ride})

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, useRouteMatch } from 'react-router-dom';
+import { Switch, useRouteMatch,Redirect } from 'react-router-dom';
 import UserHeader from '../../sections/headers/user-header/user-header';
 import {SearchRide,MakeRide,BookedRides,OfferedRides} from '../../pages/user'
 import {UserRoute} from '../../services/authentication';
@@ -22,6 +22,7 @@ export const UserTemplate = props => {
                 <UserRoute path={`${match.url}/makeRide`}>
                     <MakeRide />
                 </UserRoute>
+                <Redirect to='/user/searchRide'/>
             </Switch>
         </UserWrapper>
 

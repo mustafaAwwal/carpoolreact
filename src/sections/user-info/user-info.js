@@ -1,6 +1,7 @@
 import React from 'react';
 import HeadingInfo from '../../widgets/heading-info/heading-info';
 import styled from 'styled-components';
+import ImgNull from '../../widgets/img-null/img-null';
 const UserInfo = props=>{
     return (
         <>
@@ -19,8 +20,8 @@ const UserInfo = props=>{
                         <HeadingInfo heading='Available Seats' info={props.availableSeats}/>
                     </div>
                     <div className="col-4">
-                        <ImageWrapper>
-                            <img src={props.driverId.picture} className='shadow' alt=""/>
+                        <ImageWrapper className='Shadow'>
+                            <ImgNull src={props.driverId.picture} alt=""/>
                         </ImageWrapper>
                     </div>
                 </div>

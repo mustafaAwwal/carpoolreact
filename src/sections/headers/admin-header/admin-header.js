@@ -7,7 +7,7 @@ export const AdminHeader = ()=>{
     return(
         <AdminHeaderContainer className='fixed-top p-2 d-flex justify-content-between'>
             <BrandIcon image={carPoolLogo} to='/admin/dashboard' />
-            <AccountBadge links='false'/>
+            <AccountBadge links={false}/>
         </AdminHeaderContainer>
     )
 }

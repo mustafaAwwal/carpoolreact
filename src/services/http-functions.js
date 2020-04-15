@@ -65,12 +65,13 @@ export const wrapper = req=>{
         err=>{
             store.dispatch(actions.setLoaderOff())
             console.log(err)
-            if(err.msgtype){
-                store.dispatch(showNotificationError(err))
-            }
             if(err.status === 405){
                 localStorage.removeItem('token');
                 store.dispatch(resetUser());
+            }
+            
+            else if(err.msgtype==='error'){
+                store.dispatch(showNotificationError(err))
             }
             else {
                 store.dispatch(showNotificationError({msg:'Something went wrong'}))

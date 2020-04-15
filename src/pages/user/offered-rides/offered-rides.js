@@ -15,10 +15,11 @@ export class OfferedRides extends React.Component {
         this.showSelectedRide = this.showSelectedRide.bind(this);
         this.closePopup = this.closePopup.bind(this)
     }
+    subscription = []
     componentDidMount() {
-        driverRideRequest().subscribe(res=>{
+        this.subscription.push(driverRideRequest().subscribe(res=>{
             this.setState({rides:res.payload})
-        })
+        }))
     }
     showSelectedRide(ride) {
         console.log(ride)
@@ -26,6 +27,9 @@ export class OfferedRides extends React.Component {
     }
     closePopup() {
         this.setState({showRide:false})
+    }
+    componentWillUnmount() {
+        this.subscription[0].unsubscribe();
     }
     render() {
         let rides = this.state.rides.map((ride)=><RideCard {...ride} key={ride._id} selectRideHandler={this.showSelectedRide}/>)

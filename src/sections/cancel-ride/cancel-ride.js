@@ -2,10 +2,11 @@ import React from 'react';
 import MultiColorHeading from '../../widgets/multi-color-heading/multi-color-heading';
 import UserInfo from '../user-info/user-info';
 import {cancelRideRequest} from '../../services/secure/rides-service'
+import { take } from 'rxjs/operators';
 const CancelRide = props => {
     let cancelRide = ()=>{
         console.log(props)
-        cancelRideRequest(props).subscribe()
+        cancelRideRequest(props).pipe(take(1)).subscribe()
     }
     console.log(props)
     return (

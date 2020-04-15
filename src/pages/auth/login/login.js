@@ -7,28 +7,33 @@ import store from '../../../redux/store';
 import {login} from '../../../redux/slices/user-slice';
 import {Redirect,useLocation} from 'react-router-dom';
 export class Login extends React.Component {
-    
-    state = {
-        loginForm: {
-            username: '',
-            password: '',
-            role: 'user'
-        },
-        loggedIn: false
+    constructor(props){
+        super(props)
+        this.state = {
+            loginForm: {
+                username: '',
+                password: '',
+                role: 'user'
+            },
+            loggedIn: false
+        }
+        this.setFormData = this.setFormData.bind(this)
     }
-    componentDidMount() {
-        console.log(this.props)
+
+    subscription = [];
+    componentWillUnmount(){
+        this.subscription[0].unsubscribe();
     }
     setFormData = (formData) =>{
         this.setState({...this.state,loginForm:formData})
-        loginRequest(this.state.loginForm).subscribe(
+        this.subscription.push(loginRequest(this.state.loginForm).subscribe(
             res=>{
                 store.dispatch(login(res.payload))
                 localStorage.setItem('token',res.payload.token);
                 localStorage.setItem('role',res.payload.role)
                 this.setState({loggedIn:true,role:res.payload.role})
             }
-        )
+        ))
     }
     render() {
         let role = this.state.role;
