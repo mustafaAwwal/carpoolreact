@@ -30,7 +30,7 @@ export class Loader extends React.Component{
         return(
             <>
                 {this.state.visibility && 
-                    <LoaderContainer className='fixed-top' style={style}>
+                    <LoaderContainer className='fixed-top d-flex justify-content-center align-items-center' style={style}>
                         <SimpleLoader />
                     </LoaderContainer>
                 }

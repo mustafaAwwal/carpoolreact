@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeadingInfo from '../../widgets/heading-info/heading-info';
+import ImgNull from '../../widgets/img-null/img-null';
 
 const RideCard = props=>{
     let selectRide = ()=>{
@@ -22,7 +23,7 @@ const RideCard = props=>{
             </InfoContent>
             <InfoContent className='order-lg-4 order-md-3 order-2'>
                 <ImageWrapper className='Shadow'>
-                    <img src={props.driverId.picture} alt=""/>
+                    <ImgNull src={props.driverId.picture} alt=""/>
                 </ImageWrapper>
             </InfoContent>
 
