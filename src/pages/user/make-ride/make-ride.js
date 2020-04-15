@@ -4,7 +4,7 @@ import MultiColorHeading from '../../../widgets/multi-color-heading/multi-color-
 import MakeRideForm from './make-ride-form';
 import {getAllCities} from '../../../services/secure/city-service';
 import {makeRideRequest} from '../../../services/secure/rides-service'
-export class MakeRide extends React.Component {
+class MakeRide extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -42,3 +42,5 @@ export class MakeRide extends React.Component {
 export const DriveContainer = styled.div`
     border-radius: 20px
 `
+
+export default MakeRide;

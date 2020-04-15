@@ -4,7 +4,7 @@ import SearchBar from '../../../sections/search-bar/search-bar';
 import {searchRides} from '../../../services/secure/rides-service';
 import RideCard from '../../../sections/ride-card/ride-card'
 import BookingRide from '../../../sections/booking-ride/booking-ride';
-export class SearchRide extends React.Component {
+class SearchRide extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -55,3 +55,4 @@ export class SearchRide extends React.Component {
         )
     }
 }
+export default SearchRide;

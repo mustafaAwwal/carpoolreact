@@ -5,7 +5,7 @@ import MultiColorHeading from '../../../widgets/multi-color-heading/multi-color-
 import {bookedRideRequest} from '../../../services/secure/rides-service';
 import SidePopup from '../../../sections/side-popup/side-popup';
 import CancelRide from '../../../sections/cancel-ride/cancel-ride';
-export class BookedRides extends React.Component {
+class BookedRides extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -46,3 +46,4 @@ export class BookedRides extends React.Component {
 
 export const BookesRideContainer = styled.div`
 `
+export default BookedRides;

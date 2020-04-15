@@ -36,7 +36,7 @@ class AccountBadge extends React.Component {
         }
     }
     componentWillUnmount(){
-        this.subscription[0].unsubscribe();
+        this.subscription.map(sub=>sub.unsubscribe())
     }
     showBadge() {
         this.setState({showBadge:!this.state.showBadge})

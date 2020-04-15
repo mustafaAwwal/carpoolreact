@@ -6,7 +6,7 @@ import {loginRequest} from '../../../services/open/auth';
 import store from '../../../redux/store';
 import {login} from '../../../redux/slices/user-slice';
 import {Redirect,useLocation} from 'react-router-dom';
-export class Login extends React.Component {
+class Login extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -22,7 +22,7 @@ export class Login extends React.Component {
 
     subscription = [];
     componentWillUnmount(){
-        this.subscription[0].unsubscribe();
+        this.subscription.map(sub=>sub.unsubscribe())
     }
     setFormData = (formData) =>{
         this.setState({...this.state,loginForm:formData})
@@ -76,3 +76,5 @@ export const LoginRedirect = props => {
         <Redirect to ={from} />
     )
 }
+
+export default Login;

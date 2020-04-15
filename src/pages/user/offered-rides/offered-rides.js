@@ -4,7 +4,7 @@ import {driverRideRequest} from '../../../services/secure/rides-service';
 import RideCard from '../../../sections/ride-card/ride-card';
 import SidePopup from '../../../sections/side-popup/side-popup';
 import RideInfo from '../../../sections/ride-info/ride-info'
-export class OfferedRides extends React.Component {
+class OfferedRides extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -45,3 +45,5 @@ export class OfferedRides extends React.Component {
         )
     }
 }
+
+export default OfferedRides;

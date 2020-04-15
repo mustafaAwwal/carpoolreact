@@ -3,14 +3,14 @@ import styled from 'styled-components'
 import signupBackground from '../../../assets/backgrounds/signupBackground.svg'
 import SignupForm from './signupForm'
 import { signupRequest } from '../../../services/open/auth'
-export class Signup extends React.Component {
+class Signup extends React.Component {
     constructor(props){
         super(props)
         this.registerUser = this.registerUser.bind(this);
     }
     subscription = [];
     componentWillUnmount(){
-        this.subscription[0].unsubscribe();
+        this.subscription.map(sub=>sub.unsubscribe())
     }
     registerUser(formData) {
         this.subscription.push(signupRequest(formData).subscribe())
@@ -31,6 +31,8 @@ export class Signup extends React.Component {
         )
     }
 }
+
+export default Signup;
 
 export const SignupContainer = styled.div`
     min-height: 100vh;
