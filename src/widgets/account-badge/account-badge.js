@@ -6,22 +6,18 @@ import { login } from '../../redux/slices/user-slice';
 import { useHistory,Link } from 'react-router-dom';
 import ImgNull from '../img-null/img-null'
 class AccountBadge extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            name: '',
-            picture: '',
-            showBadge: false
-        }
-        this.setInitialState = this.setInitialState.bind(this)
+    state = {
+        name: '',
+        picture: '',
+        showBadge: false
     }
 
     subscription = []
-    componentDidMount() {
+    componentDidMount = ()=> {
         this.setInitialState()
 
     }
-    setInitialState() {
+    setInitialState = ()=> {
         let {username,picture} = store.getState().userReducer;
         if(username.length > 0){
             this.setState({name:username,picture:picture})
@@ -35,10 +31,10 @@ class AccountBadge extends React.Component {
             ));
         }
     }
-    componentWillUnmount(){
+    componentWillUnmount = ()=> {
         this.subscription.map(sub=>sub.unsubscribe())
     }
-    showBadge() {
+    showBadge = ()=> {
         this.setState({showBadge:!this.state.showBadge})
     }
     render() {

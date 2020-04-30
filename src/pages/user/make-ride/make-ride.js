@@ -5,12 +5,8 @@ import MakeRideForm from './make-ride-form';
 import {getAllCities} from '../../../services/secure/city-service';
 import {makeRideRequest} from '../../../services/secure/rides-service'
 class MakeRide extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            cities: []
-        }
-        this.makeRideHandler = this.makeRideHandler.bind(this);
+    state = {
+        cities: []
     }
     subscription = []
     componentDidMount() {
@@ -26,7 +22,7 @@ class MakeRide extends React.Component {
         formData.destinationCoOrdinates = destinationCity.coOrdinates
         this.subscription.push(makeRideRequest(formData).subscribe());
     }
-    componentWillUnmount(){
+    componentWillUnmount = ()=>{
         this.subscription.map(sub=>sub.unsubscribe())
     }
     render() {

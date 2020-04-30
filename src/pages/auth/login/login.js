@@ -7,21 +7,17 @@ import store from '../../../redux/store';
 import {login} from '../../../redux/slices/user-slice';
 import {Redirect,useLocation} from 'react-router-dom';
 class Login extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            loginForm: {
-                username: '',
-                password: '',
-                role: 'user'
-            },
-            loggedIn: false
-        }
-        this.setFormData = this.setFormData.bind(this)
+    state = {
+        loginForm: {
+            username: '',
+            password: '',
+            role: 'user'
+        },
+        loggedIn: false
     }
 
     subscription = [];
-    componentWillUnmount(){
+    componentWillUnmount = ()=>{
         this.subscription.map(sub=>sub.unsubscribe())
     }
     setFormData = (formData) =>{
@@ -35,8 +31,7 @@ class Login extends React.Component {
             }
         ))
     }
-    render() {
-        let role = this.state.role;
+    render = ()=> {
         return(
             <LoginContainer className='container-fluid'>
                 <div className="row align-items-stretch">
@@ -47,7 +42,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.loggedIn && <LoginRedirect role={role}/>}
+                {this.state.loggedIn && <LoginRedirect role={this.state.role}/>}
             </LoginContainer>
         )
     }

@@ -19,10 +19,10 @@ class SearchRide extends React.Component {
         this.closePopup = this.closePopup.bind(this)
     }
     subscription = []
-    showPopup() {
+    showPopup = ()=> {
         this.setState({showPopup: true})
     }
-    searchRideHandler(values) {
+    searchRideHandler = (values)=> {
         this.subscription.push(searchRides(values).subscribe(
             res=> {
                 this.setState({searchedRides: res.payload})
@@ -30,25 +30,24 @@ class SearchRide extends React.Component {
             
         ))
     }
-    componentWillUnmount(){
+    componentWillUnmount = ()=>{
         this.subscription.map(sub=>sub.unsubscribe())
     }
-    showSelectedRide(ride) {
+    showSelectedRide = (ride)=> {
         console.log(ride)
         this.setState({selectedRide: ride})
         this.showPopup();
     }
-    closePopup(){
+    closePopup = ()=>{
         this.setState({showPopup:false})
     }
-    render() {
+    render = ()=> {
         let rides = this.state.searchedRides.map((ride,i)=><RideCard key={i} {...ride} selectRideHandler={this.showSelectedRide}/>)
-        let selectedRide = this.state.selectedRide
         return(
             <div className='container'>
                 <SearchBar searchRideHandler={this.searchRideHandler}/>
                 <SidePopup show={this.state.showPopup} closePopup={this.closePopup}>
-                    <BookingRide {...selectedRide}/>
+                    <BookingRide {...this.state.selectedRide}/>
                 </SidePopup>
                 {rides}
             </div>

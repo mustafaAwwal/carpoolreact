@@ -8,7 +8,7 @@ import {
   Route,
   Switch } from 'react-router-dom';
 import Notification from './sections/notification/notification'
-function App() {
+const App = ()=> {
   return (
     <div>
         <Router>

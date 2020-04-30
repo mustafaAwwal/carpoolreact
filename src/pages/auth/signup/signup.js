@@ -4,15 +4,11 @@ import signupBackground from '../../../assets/backgrounds/signupBackground.svg'
 import SignupForm from './signupForm'
 import { signupRequest } from '../../../services/open/auth'
 class Signup extends React.Component {
-    constructor(props){
-        super(props)
-        this.registerUser = this.registerUser.bind(this);
-    }
     subscription = [];
-    componentWillUnmount(){
+    componentWillUnmount = ()=> {
         this.subscription.map(sub=>sub.unsubscribe())
     }
-    registerUser(formData) {
+    registerUser= (formData)=> {
         this.subscription.push(signupRequest(formData).subscribe())
     }
     render() {

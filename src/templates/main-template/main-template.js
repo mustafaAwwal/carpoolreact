@@ -9,7 +9,6 @@ const Signup =  lazy(()=>import('../../pages/auth/signup/signup'));
 
 export const MainTemplate = props => {
     let match = useRouteMatch();
-    console.log(match.url)
     return(
         <div>
             <MainHeader />

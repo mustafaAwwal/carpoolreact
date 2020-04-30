@@ -3,6 +3,7 @@ import store from '../../redux/store';
 import styled from 'styled-components';
 import success from '../../assets/icons/success.svg';
 import error from '../../assets/icons/error.svg';
+import { filter } from 'rxjs/operators';
 class Notification extends React.Component {
     state = {
         msg: '',
